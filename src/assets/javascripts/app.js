@@ -183,6 +183,15 @@ Vue.component('relative-time', {
 })
 
 var vm = new Vue({
+  mounted:function(){
+    const subscribe_to = new URLSearchParams(window.location.search).get('subscribe_to');
+    if(subscribe_to){
+      vm.settings = 'create'
+      //document.getElementById("feed-url").value = subscribe_to;
+      this.autoFeedUrl = subscribe_to;
+      //test
+    }
+  },
   created: function() {
     this.refreshStats()
       .then(this.refreshFeeds.bind(this))
