@@ -151,12 +151,12 @@ jobs:
         name: Read latest release tag
         id: read-tag
         run: |
-          echo ::set-output name=tag::$(curl -sL https://raw.githubusercontent.com/arsfeld/yarr-build/main/yarr-version.txt)
+          echo ::set-output name=tag::$(curl -sL https://raw.githubusercontent.com/rebron1900/yarr/rsshub/yarr-version.txt)
       -
         name: Checkout
         uses: actions/checkout@v2
         with:
-          repository: 'nkanaev/yarr'
+          repository: 'rebron1900/yarr'
           ref: ${{ steps.read-tag.outputs.tag }}
       - 
         name: Remove GOARCH
