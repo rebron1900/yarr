@@ -189,7 +189,6 @@ var vm = new Vue({
       vm.settings = 'create'
       //document.getElementById("feed-url").value = subscribe_to;
       this.autoFeedUrl = subscribe_to;
-      //test
     }
   },
   created: function() {
