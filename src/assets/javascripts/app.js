@@ -222,6 +222,8 @@ var vm = new Vue({
       'filteredFeedStats': {},
       'filteredFolderStats': {},
       'filteredTotalStats': null,
+      
+      'autoFeedUrl': '',
 
       'settings': '',
       'loading': {
