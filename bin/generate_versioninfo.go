@@ -35,7 +35,7 @@ END
 
 func main() {
 	var version, outfile string
-	flag.StringVar(&version, "version", "0.0", "")
+	flag.StringVar(&version, "version", "0.0.0", "")
 	flag.StringVar(&outfile, "outfile", "versioninfo.rc", "")
 	flag.Parse()
 
