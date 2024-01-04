@@ -152,7 +152,6 @@ jobs:
         run: |
           tag=$(curl -sL https://api.github.com/repos/rebron1900/yarr/releases/latest | \
           jq -r ".tag_name")
-          echo $tag > yarr-version.txt
           echo ::set-output name=tag::$tag
       - name: Checkout
         uses: actions/checkout@v2
