@@ -47,6 +47,8 @@ type atomLinks []atomLink
 func (a *atomText) Text() string {
 	if a.Type == "html" {
 		return htmlutil.ExtractText(a.Data)
+	} else if a.Type == "xhtml" {
+		return htmlutil.ExtractText(a.XML)
 	}
 	return a.Data
 }
@@ -81,9 +83,16 @@ func ParseAtom(r io.Reader) (*Feed, error) {
 		SiteURL: firstNonEmpty(srcfeed.Links.First("alternate"), srcfeed.Links.First("")),
 	}
 	for _, srcitem := range srcfeed.Entries {
-		link := firstNonEmpty(srcitem.OrigLink, srcitem.Links.First("alternate"), srcitem.Links.First(""))
+		linkFromID := ""
+		guidFromID := ""
+		if htmlutil.IsAPossibleLink(srcitem.ID) {
+			linkFromID = srcitem.ID
+			guidFromID = srcitem.ID + "::" + srcitem.Updated
+		}
+
+		link := firstNonEmpty(srcitem.OrigLink, srcitem.Links.First("alternate"), srcitem.Links.First(""), linkFromID)
 		dstfeed.Items = append(dstfeed.Items, Item{
-			GUID:     firstNonEmpty(srcitem.ID, link),
+			GUID:     firstNonEmpty(guidFromID, srcitem.ID, link),
 			Date:     dateParse(firstNonEmpty(srcitem.Published, srcitem.Updated)),
 			URL:      link,
 			Title:    srcitem.Title.Text(),
